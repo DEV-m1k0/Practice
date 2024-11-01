@@ -34,7 +34,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True,
                 unique=True, nullable=False,
-                autoincrement=True, system=True,
+                autoincrement=True,
                 comment="Уникальный индетификатор пользователя",
                 doc="Уникальный индетификатор пользователя",
                 info={
@@ -44,7 +44,6 @@ class User(Base):
                     "primary_key": True,
                     "unique": True,
                     "nullable": False,
-                    "system": True
                 })
     username = Column(String(50), nullable=False,
                       unique=True, system=False,
@@ -182,7 +181,7 @@ class Direction(Base):
 
     id = Column(Integer, primary_key=True,
                 unique=True, nullable=False,
-                autoincrement=True, system=True,
+                autoincrement=True,
                 comment="Уникальный индетификатор направления",
                 doc="Уникальный индетификатор направления",
                 info={
@@ -192,7 +191,6 @@ class Direction(Base):
                     "primary_key": True,
                     "unique": True,
                     "nullable": False,
-                    "system": True
                 })
     name = Column(String(255), nullable=False,
                 comment="Наименование направления",
@@ -222,7 +220,6 @@ class Role(Base):
 
     id = Column(Integer, primary_key=True,
                 unique=True, nullable=False,
-                autoincrement=True, system=True,
                 comment="Уникальный индетификатор роли",
                 doc="Уникальный индетификатор роли",
                 info={
@@ -232,7 +229,6 @@ class Role(Base):
                     "primary_key": True,
                     "unique": True,
                     "nullable": False,
-                    "system": True
                 })
     name = Column(String(255), nullable=False,
                   comment="Название роли",
@@ -265,7 +261,7 @@ class Event(Base):
 
     id = Column(Integer, primary_key=True,
                 unique=True, nullable=False,
-                autoincrement=True, system=True,
+                autoincrement=True,
                 comment="Уникальный индетификатор события",
                 doc="Уникальный индетификатор события",
                 info={
@@ -275,7 +271,6 @@ class Event(Base):
                     "primary_key": True,
                     "unique": True,
                     "nullable": False,
-                    "system": True
                 })
     title = Column(String(255), nullable=False,
                     comment="Название события",
