@@ -312,3 +312,47 @@ class Event(Base):
     
     def __repr__(self) -> str:
         return f"<Event(title={self.title}, date={self.date})>"
+
+
+# Модель для пользователей, которые записались на мероприятие "event_user"
+class EventUser(Base):
+    """
+    ### Модель с пользователями, которые записались на мероприятие
+    В данной модели доступны следующие поля:
+
+        1. id
+        2. event_id
+        3. user_id
+    """
+    __tablename__ = 'event_user'
+
+    id = Column(Integer, primary_key=True,
+                unique=True, nullable=False,
+                comment="Уникальный индетификатор записи пользователя на мероприятие",
+                doc="Уникальный индетификатор записи пользователя на мероприятие",
+                info={
+                    "name": "id",
+                    "type": "integer",
+                    "description": "Уникальный индетификатор записи пользователя на мероприятие",
+                    "nullable": False,
+                    "unique": True,
+                    "primary_key": True
+                })
+    event_id = Column(ForeignKey("event.id"), nullable=False,
+                      comment="Идентификатор мероприятия, на которое записан пользователь",
+                      doc="Идентификатор мероприятия, на которое записан пользователь",
+                      info={
+                          "name": "event_id",
+                          "type": "integer",
+                          "description": "Идентификатор мероприятия, на которое записан пользователь",
+                          "nullable": False
+                    })
+    user_id = Column(ForeignKey("user.id"), nullable=False,
+                     comment="Идентификатор пользователя, который записан на мероприятие",
+                     doc="Идентификатор пользователя, который записан на мероприятие",
+                     info={
+                         "name": "user_id",
+                         "type": "integer",
+                         "description": "Идентификатор пользователя, который записан на мероприятие",
+                         "nullable": False
+                    })
