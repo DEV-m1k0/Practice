@@ -7,7 +7,7 @@ from models.config import engine
 
 #SECTION - ============ Файл для создания кастомных комманд в Django ============
 
-Используется для создания таблиц в базе данных.
+Данный файл используется для создания таблиц в базе данных.
 
 Дабы активировать данный файл с классом для создания таблиц в базе данных,
 нам нужно прописать следующую комманду в консоли:
@@ -29,5 +29,10 @@ class Command(BaseCommand):
         python manage.py migrate
         ```
         """
-        # Создаем таблицы в базе данных
-        Base.metadata.create_all(engine)
+
+        try:
+            # Создаем таблицы в базе данных
+            Base.metadata.create_all(engine)
+            self.stdout.write(self.style.SUCCESS('Таблицы успешно созданы!'))
+        except Exception as e:
+            self.stderr.write(self.style.ERROR(f'Ошибка при создании таблиц: {e}'))
