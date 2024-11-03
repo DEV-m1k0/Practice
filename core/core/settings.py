@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'models',
     'api',
-    'events'
+    'events',
+    'registration',
+    'logic',
 ]
 
 MIDDLEWARE = [
