@@ -1,6 +1,6 @@
 from typing import Tuple
 from PIL import Image
-from base import BaseUser
+from .base import BaseUser
 from sqlalchemy.orm import Session
 from models.models import User
 from models.config import engine

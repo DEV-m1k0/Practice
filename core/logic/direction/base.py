@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from logic.base import Entity
 
 
 """
@@ -9,18 +9,19 @@ from abc import ABC, abstractmethod
 
 
 
-class BaseDirection(ABC):
+class BaseDirection(Entity):
     """
-    Абстрактный класс для определения общего поведения направлений.
+    Класс для работы с направлениями
     """
-    @abstractmethod
-    def create():
-        pass
-    
-    @abstractmethod
-    def get_name_by_id():
-        pass
 
-    @abstractmethod
-    def get_id_by_name():
-        pass
+    def save(self):
+        return super().save()
+    
+    def delete(self):
+        return super().delete()
+    
+    def update(self):
+        return super().update()
+    
+    def get(self):
+        return super().get()

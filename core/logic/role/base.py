@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from logic.base import Entity
 
 
 """
@@ -8,19 +8,19 @@ from abc import ABC, abstractmethod
 """
 
 
-class BaseRole(ABC):
+class BaseRole(Entity):
     """
-    Абстрактный класс для определения общего поведения ролей.
+    Класс для определения общего поведения ролей.
     """
 
-    @abstractmethod
-    def create(self):
-        pass
-
-    @abstractmethod
-    def get_role_by_id(self):
-        pass
-
-    @abstractmethod
-    def get_id_by_role(self):
-        pass
+    def get(self):
+        return super().get()
+    
+    def save(self):
+        return super().save()
+    
+    def update(self):
+        return super().update()
+    
+    def delete(self):
+        return super().delete()
