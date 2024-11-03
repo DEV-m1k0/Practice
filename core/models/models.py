@@ -1,4 +1,4 @@
-from sqlalchemy.orm import DeclarativeBase, relationship
+from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import (Column, Integer, String,
                         ForeignKey, LargeBinary,
                         Date, BLOB)
@@ -39,16 +39,17 @@ class User(Base):
     В данной модели доступны следующие поля:
 
         1. id.
-        2. username.
-        3. password.
-        4. firstname.
-        5. lastname.
-        6. role_id.
-        7. photo.
-        8. gender.
-        9. email.
-        10. phone.
-        11. direction_id.
+        2. id_number.
+        3. username.
+        4. password.
+        5. firstname.
+        6. lastname.
+        7. role_id.
+        8. photo.
+        9. gender.
+        10. email.
+        11. phone.
+        12. direction_id.
     """
     __tablename__ = 'user'
 
@@ -162,7 +163,7 @@ class User(Base):
                         "system": False,
                         "max_length": 255
                     })
-    phone = Column(String(12), nullable=True,
+    phone = Column(String(17), nullable=True,
                    comment="Номер телефона пользователя",
                    doc="Номер телефона пользователя",
                    info={
