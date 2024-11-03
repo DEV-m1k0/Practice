@@ -1,10 +1,12 @@
 from rest_framework.generics import CreateAPIView
 from .serializers import UserRegistrationSerializer
 from rest_framework.response import Response
-from logic.utils import generate, validate
+from logic.utils import generate, validate, image
 from logic.role.find import GetRole
 from logic.direction.find import GetDirection
 from logic.user.create import CreateUser
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.contrib.auth.hashers import make_password
 
 
 
@@ -44,7 +46,7 @@ class UserRegistrationAPIView(CreateAPIView):
         gender = request.POST.get('gender')
         role = request.POST.get('role')
         email = request.POST.get('email')
-        phone = request.POST.get('phone')
+        phone: InMemoryUploadedFile = request.POST.get('phone')
         direction = request.POST.get('direction')
         event = request.POST.get('event')
         photo = request.FILES.get('photo')
@@ -59,7 +61,7 @@ class UserRegistrationAPIView(CreateAPIView):
         get_direction = GetDirection(name=direction)
         direction_id = get_direction.get()
 
-        print(role_id, direction_id)
+        bphoto = image.load_image(photo)
 
         #TODO - Доделать регистрацию жюри/модератора. Остановился на момента
         # прикрепления жюри/модератора на мероприятие
@@ -69,6 +71,8 @@ class UserRegistrationAPIView(CreateAPIView):
         if not password_is_valid:
             response["info"] = password_info
             return Response(response, status=400)
+        
+        hash_password = make_password(password)
         
         # Проверяем валидность полного имени
         fullname_is_valid, fullname_info = validate.fullname_is_valid(full_name)
@@ -92,25 +96,11 @@ class UserRegistrationAPIView(CreateAPIView):
         
         # Выполняем создание пользователя
         creation_user = CreateUser(id_number, username,
-                                   password, role_id,
+                                   hash_password, role_id,
                                    gender, firstname,
-                                   lastname, photo,
+                                   lastname, bphoto,
                                    email, phone, direction_id)
         response["info"], code = creation_user.create()
 
         return Response(response, code)
-
-    # def __init__(self, **kwargs) -> None:
-    #     super().__init__(**kwargs)
-    #     self.queryset = self.set_queryset()
-
-    # def set_queryset(self):
-    #     """
-    #     Метод для получения доступных клиентам пользователей из базы данных.
-    #     """
-
-    #     queryset_sql_row = select(User)
-    #     with Session(engine) as session:
-    #         queryset = session.scalars(queryset_sql_row)
-
-    #     return queryset
+        # return Response()

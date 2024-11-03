@@ -162,7 +162,7 @@ class User(Base):
                         "system": False,
                         "max_length": 255
                     })
-    phone = Column(String(12), nullable=True,
+    phone = Column(String(17), nullable=True,
                    comment="Номер телефона пользователя",
                    doc="Номер телефона пользователя",
                    info={

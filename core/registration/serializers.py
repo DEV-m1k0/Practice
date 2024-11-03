@@ -23,7 +23,7 @@ class UserRegistrationSerializer(serializers.Serializer):
     gender = serializers.ChoiceField(GENDERS, required=True)
     role = serializers.ChoiceField(JURY_OR_MODERATOR, required=True)
     email = serializers.EmailField(max_length=255, required=True)
-    phone = serializers.CharField(max_length=12, required=True)
+    phone = serializers.CharField(max_length=17, required=True)
     direction = serializers.CharField(max_length=255, required=True)
     event = serializers.CharField(max_length=255, required=True)
     photo = serializers.ImageField(required=False)
