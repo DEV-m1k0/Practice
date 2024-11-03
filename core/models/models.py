@@ -1,7 +1,8 @@
 from sqlalchemy.orm import DeclarativeBase, relationship
 from sqlalchemy import (Column, Integer, String,
                         ForeignKey, LargeBinary,
-                        Date)
+                        Date, BLOB)
+
 
 """
 
@@ -312,7 +313,7 @@ class Event(Base):
                         "nullable": False,
                         "max_length": 255
                     })
-    photo = Column(LargeBinary, nullable=True,
+    photo = Column(BLOB, nullable=True,
                     comment="Картинка для мероприятия",
                     doc="Картинка для мероприятия",
                     info={
