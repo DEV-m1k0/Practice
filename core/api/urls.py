@@ -1,6 +1,6 @@
-from django.urls import path
-import views
+from django.urls import path, include
+
 
 urlpatterns = [
-    path('api/', views)
+    path('events/', include('events.urls'))
 ]

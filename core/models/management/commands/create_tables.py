@@ -12,7 +12,7 @@ from models.config import engine
 Дабы активировать данный файл с классом для создания таблиц в базе данных,
 нам нужно прописать следующую комманду в консоли:
 ```bash
-python manage.py migrate
+python manage.py create_tables
 ```
 
 """
@@ -26,7 +26,7 @@ class Command(BaseCommand):
         Данная функция активируется, когда в консоли прописывается
         следующая комманда:
         ```
-        python manage.py migrate
+        python manage.py create_tables
         ```
         """
 

@@ -1,7 +1,8 @@
 from sqlalchemy.orm import DeclarativeBase, relationship
 from sqlalchemy import (Column, Integer, String,
                         ForeignKey, LargeBinary,
-                        Date)
+                        Date, BLOB)
+
 
 """
 
@@ -12,6 +13,18 @@ from sqlalchemy import (Column, Integer, String,
 
 """
 
+
+# Список гендеров для пользователей
+GENDERS = ["мужчина", "женщина"]
+
+
+# Список ролей для пользователей
+ROLES = [
+    "пользователь",
+    "организатор",
+    "жюри",
+    "модератор"
+]
 
 
 # Базовый класс для всех моделей
@@ -52,6 +65,17 @@ class User(Base):
                     "unique": True,
                     "nullable": False,
                 })
+    id_number = Column(Integer, unique=True,
+                       nullable=False,
+                       comment="Уникальный идентификатор для пользователя",
+                       doc="Уникальный идентификатор для пользователя",
+                       info={
+                           "name": "id_number",
+                           "type": "integer",
+                           "description": "Уникальный идентификатор для пользователя",
+                           "unique": True,
+                           "nullable": False,
+                           })
     username = Column(String(50), nullable=False,
                       unique=True, system=False,
                       comment="Логин пользователя",
@@ -289,7 +313,7 @@ class Event(Base):
                         "nullable": False,
                         "max_length": 255
                     })
-    photo = Column(LargeBinary, nullable=True,
+    photo = Column(BLOB, nullable=True,
                     comment="Картинка для мероприятия",
                     doc="Картинка для мероприятия",
                     info={
