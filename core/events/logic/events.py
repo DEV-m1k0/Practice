@@ -1,7 +1,8 @@
-from models.models import Event 
+from models.models import Event, User
 from sqlalchemy.orm import Session
 from models.config import engine
 from datetime import datetime
+from sqlalchemy import select
 
 
 def create_event(request):
@@ -25,5 +26,7 @@ def parse(request):
     title=request.data['title']
     photo=request.FILES['photo'].read()
     date=datetime.strptime(request.data['date'], '%Y-%m-%d').date()
-    user_id=request.data['user_id']
+    with Session(engine) as session:
+        user = select(User).where(User.username == request.data['user_id'])
+        user_id = session.scalar(user).id
     return title, photo, date, user_id
