@@ -4,7 +4,7 @@ from models.config import engine
 from django.contrib.auth.hashers import make_password
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from core.logic.utils import generate
+from logic.utils import generate
 
 
 """
