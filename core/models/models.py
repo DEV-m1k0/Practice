@@ -2,7 +2,7 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import (Column, Integer, String,
                         ForeignKey, LargeBinary,
                         Date, BLOB)
-
+from django.contrib.auth.hashers import check_password
 
 """
 
@@ -187,7 +187,12 @@ class User(Base):
 
     # event_user = relationship("EventUser", back_populates='user_id')
     
-    
+    def check_user_password(self, row_password):
+        """
+        Функция для проверки пароля пользователя
+        """
+        return check_password(row_password, self.password)
+
     @property
     def full_name(self):
         """
@@ -196,7 +201,7 @@ class User(Base):
         return f"{self.firstname} {self.lastname}"
 
     def __repr__(self) -> str:
-        return f"<User(username={self.username}, fullname='{self.firstname} {self.lastname}', gender={self.gender}>"
+        return f"{self.username}"
 
 
 
@@ -274,7 +279,7 @@ class Role(Base):
                     })
 
     def __repr__(self) -> str:
-        return f"<Role(name={self.name})>"
+        return f"{self.name}"
 
 
 # Модель для таблицы "event"
@@ -343,7 +348,7 @@ class Event(Base):
                     })
     
     def __repr__(self) -> str:
-        return f"<Event(title={self.title}, date={self.date})>"
+        return f"{self.title}"
 
 
 # Модель для пользователей, которые записались на мероприятие "event_user"
