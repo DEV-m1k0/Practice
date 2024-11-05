@@ -9,21 +9,39 @@ from .permissions import AuthenticatePermission
 from datetime import timedelta
 
 
-# Create your views here.
+"""
 
+# SECTION - ================== Создания классов предстваления ==================
+
+Данный файл предназначен для создания классов представления, которые отвечают
+за обработку запросов и отправку ответов.
+
+Классы представления - это вызываемый объект, который принимает запрос
+и возвращает ответ.
+
+Более подробно о классах представления вы можете узнать в документации Django:
+https://docs.djangoproject.com/en/4.2/topics/http/views/
+
+Более подробно о классах предстваления в Django Rest Framework:
+https://www.django-rest-framework.org/api-guide/views/
+
+"""
 
 
 class AuthenticationAPIView(CreateAPIView):
     """
     Класс для авторизации в систему
     """
+    # Добавляем сериализатор
     serializer_class = UserSerializer
 
     def get_queryset(self):
         """
         Получаем список пользователей
         """
+        # Создаем sql запрос
         users_sql = select(User)
+        # Используем сессию для выполнения запроса и получения данных
         users = session.scalars(users_sql)
         return users
     
@@ -52,14 +70,18 @@ class AccounMeAPIView(ListAPIView):
     """
     Класс для получения информации о текущем пользователе
     """
+    # Добавляем сериализатор
     serializer_class = UserSerializer
+    # Добавляем проверку авторизации
     permission_classes = [AuthenticatePermission]
 
     def get_queryset(self):
         """
         Получаем список пользователей
         """
+        # Создаем sql запрос
         users_sql = select(User)
+        # Используем сессию для выполнения запроса и получения данных
         users = session.scalars(users_sql)
         return users
     
@@ -95,3 +117,17 @@ class AccounMeAPIView(ListAPIView):
         return Response({
             "Информация о пользователе": response
             })
+    
+
+"""
+
+# NOTE - =========================== О разработчиках ===========================
+
+Данный гайд был создан для того, чтобы помочь начинающим разработчикам
+в создании API с использованием Django Rest Framework.
+
+GitHub'ы разработчиков данного гайда:
+ - https://github.com/DEV-m1k0
+ - https://github.com/Artem822
+
+"""

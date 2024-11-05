@@ -20,6 +20,24 @@ from models.config import session
 В данном файле находятся классы представления, которые используются для рендера
 API на страницах.
 
+Более подробно о классах представления вы можете узнать в документации Django:
+https://docs.djangoproject.com/en/4.2/topics/http/views/
+
+Более подробно о классах предстваления в Django Rest Framework:
+https://www.django-rest-framework.org/api-guide/views/
+
+
+# NOTE - =========================== О разработчиках ===========================
+
+Данный гайд был создан для того, чтобы помочь начинающим разработчикам
+в создании API с использованием Django Rest Framework.
+
+GitHub'ы разработчиков данного гайда:
+ - https://github.com/DEV-m1k0
+ - https://github.com/Artem822
+
+Исходный код данного проекта станет доступен после окончания практики!
+
 """
 
 
@@ -70,9 +88,6 @@ class UserRegistrationAPIView(CreateAPIView):
 
         bphoto = image.load_image(photo)
 
-        #TODO - Доделать регистрацию жюри/модератора. Остановился на момента
-        # прикрепления жюри/модератора на мероприятие
-
         # Проверяем валидность пароля
         password_is_valid, password_info = validate.password_is_valid(password)
         if not password_is_valid:
@@ -110,3 +125,19 @@ class UserRegistrationAPIView(CreateAPIView):
         response["info"], code = creation_user.create()
 
         return Response(response, code)
+    
+
+
+
+"""
+
+# NOTE - =========================== О разработчиках ===========================
+
+Данный гайд был создан для того, чтобы помочь начинающим разработчикам
+в создании API с использованием Django Rest Framework.
+
+GitHub'ы разработчиков данного гайда:
+ - https://github.com/DEV-m1k0
+ - https://github.com/Artem822
+
+"""
