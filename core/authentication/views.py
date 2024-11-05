@@ -71,6 +71,7 @@ class AccounMeAPIView(ListAPIView):
         user = session.scalar(user_sql)
         # Создаем словарь с информацией о текущем пользователе
         response = {
+                "Номер": f"{user.id_number}",
                 "Никнейм": f"{user.username}",
                 "имя": f"{user.firstname}",
                 "фамилия": f"{user.lastname}",

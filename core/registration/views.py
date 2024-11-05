@@ -7,7 +7,10 @@ from logic.direction.find import GetDirection
 from logic.user.create import CreateUser
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.contrib.auth.hashers import make_password
-
+from . import permissions
+from sqlalchemy.sql import select
+from models.models import User
+from models.config import session
 
 
 """
@@ -26,16 +29,20 @@ class UserRegistrationAPIView(CreateAPIView):
     """
 
     serializer_class = UserRegistrationSerializer
-    # queryset: list
-    # permission_classes = (permissions.IsOrganizer,)
+    permission_classes = (permissions.IsOrganizer,)
+
+    def get_queryset(self):
+        """
+        Получаем список всех пользователей
+        """
+        users_sql = select(User)
+        users = session.scalars(users_sql)
+        return users
 
     def create(self, request, *args, **kwargs):
         """
         Метод для создания нового пользователя
         """
-
-        print(request.POST)
-        print(request.FILES)
 
         # Создаем словарь для возврата информации о добавлении пользователя
         response = {}
@@ -103,4 +110,3 @@ class UserRegistrationAPIView(CreateAPIView):
         response["info"], code = creation_user.create()
 
         return Response(response, code)
-        # return Response()
