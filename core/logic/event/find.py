@@ -30,8 +30,11 @@ class GetEvent(BaseEvent):
 
         # Используем сессию для выполнения запроса и получения данных
         with Session(engine) as session:
-            # Получаем все мероприятия
-            events = session.scalars(events_sql_row).all()
+            try:
+                # Получаем все мероприятия
+                events = session.scalars(events_sql_row).all()
+            except:
+                events = []
 
         # Проходимся по всем мероприятиям
         for event in events:

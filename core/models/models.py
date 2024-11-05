@@ -2,7 +2,7 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import (Column, Integer, String,
                         ForeignKey, LargeBinary,
                         Date, BLOB)
-
+from django.contrib.auth.hashers import check_password
 
 """
 
@@ -187,7 +187,12 @@ class User(Base):
 
     # event_user = relationship("EventUser", back_populates='user_id')
     
-    
+    def check_user_password(self, row_password):
+        """
+        Функция для проверки пароля пользователя
+        """
+        return check_password(row_password, self.password)
+
     @property
     def full_name(self):
         """

@@ -1,4 +1,5 @@
 from sqlalchemy import URL, create_engine
+from sqlalchemy.orm import Session
 
 """
 
@@ -24,3 +25,5 @@ engine = create_engine(
             url=URL.create(**url_db),
             echo=True
         )
+
+session = Session(engine)
