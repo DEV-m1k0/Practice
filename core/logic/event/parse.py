@@ -28,4 +28,5 @@ class ParseEvent(BaseEvent):
         with Session(engine) as session:
             users = select(User).where(User.username == request.data['user'])
             user = session.scalar(users).id
+            session.close()
         return title, photo, date, user

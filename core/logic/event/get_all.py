@@ -17,7 +17,7 @@ class GetEvents(BaseEvent):
     """
     def get(self, request):
         """
-        Данный метод создаёт новое мероприятие
+        Данный метод получает все мероприятия
         """
         response ={}
         
@@ -32,6 +32,8 @@ class GetEvents(BaseEvent):
         except Exception as e:
             response['status'] = 400
             print(e)
+        finally:
+            session.close()
         return response 
     
 
