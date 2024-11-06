@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from models.models import Base
-from models.config import engine
+from models.config import session
 
 
 """
@@ -32,7 +32,7 @@ class Command(BaseCommand):
 
         try:
             # Создаем таблицы в базе данных
-            Base.metadata.create_all(engine)
+            Base.metadata.create_all(session.get_bind())
             self.stdout.write(self.style.SUCCESS('Таблицы успешно созданы!'))
         except Exception as e:
             self.stderr.write(self.style.ERROR(f'Ошибка при создании таблиц: {e}'))

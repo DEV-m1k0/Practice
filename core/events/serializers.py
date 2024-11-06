@@ -1,16 +1,36 @@
 from rest_framework import serializers
 from models.models import Event, User
 from sqlalchemy import select
-from sqlalchemy.orm import Session
-from models.config import engine
+from models.config import session
+
+
+"""
+
+# SECTION - ===================== Сериализаторы для событий =====================
+
+Данный файл используется для создания сериализаторов.
+
+"""
+
 
 class EventSerializer(serializers.Serializer):
+    """
+    Сериализатор для мероприятий
+    """
+    # Поле для названия события
     title = serializers.CharField(max_length=255)
+    # Поле для изображения события
     photo = serializers.ImageField()
+    # Поле для даты события
     date = serializers.DateField()
-    try:
-        with Session(engine) as session:
-            user = select(User.username)
-            user_id = serializers.ChoiceField(session.scalars(user).all())
-    except:
-        pass
+    # Поле для выбора пользователей
+    user = serializers.ChoiceField(choices=[])
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Создаем sql запрос для получения всех пользователей
+        users_sql = select(User)
+        # Выполняем sql запрос и получаем список пользователей
+        users = session.scalars(users_sql)
+        # Присваиваем полученный список пользователей в поле choices сериализатора
+        self.fields['user'].choices = users

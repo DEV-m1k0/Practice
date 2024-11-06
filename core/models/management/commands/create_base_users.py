@@ -4,7 +4,7 @@ from models.config import engine
 from django.contrib.auth.hashers import make_password
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-import random
+from logic.utils import generate
 
 
 """
@@ -41,29 +41,7 @@ class Command(BaseCommand):
 
                 # NOTE - Создаем пользователя с ролью 'пользователь'
                 # Создаем уникальный идентификатор для пользователя
-                user_id_number: int
-                while True:
-                    with Session(engine) as session:
-                        # Генерируем случайный идентификатор
-                        user_id_number = random.randrange(0, 1000000, 1)
-                        
-                        # Создаем sql запрос
-                        users_sql_row = select(User)
-
-                        # Получаем всех пользователей
-                        users = session.scalars(users_sql_row).all()
-
-                        check_id_number: bool = False
-
-                        # Проверяем, есть ли такой идентификатор у другого пользователя
-                        for i in range(len(users)):
-                            if users[i].id_number == user_id_number:
-                                check_id_number = True
-                                break
-
-                        if not check_id_number:
-                            break
-
+                user_id_number = generate.unique_id_number()
 
                 # Формируем пароль для пользователя
                 user_password = make_password("user")
@@ -82,29 +60,8 @@ class Command(BaseCommand):
 
                 # NOTE - Создаем пользователя с ролью 'организатор'
                 # Создаем уникальный идентификатор для пользователя
-                organizer_id_number: int
-                while True:
-                    with Session(engine) as session:
-                        # Генерируем случайный идентификатор
-                        organizer_id_number = random.randrange(0, 1000000, 1)
-                        
-                        # Создаем sql запрос
-                        users_sql_row = select(User)
-
-                        # Получаем всех пользователей
-                        users = session.scalars(users_sql_row).all()
-
-                        check_id_number: bool = False
-
-                        # Проверяем, есть ли такой идентификатор у другого пользователя
-                        for i in range(len(users)):
-                            if users[i].id_number == organizer_id_number:
-                                check_id_number = True
-                                break
-
-                        if not check_id_number:
-                            break
-
+                organizer_id_number = generate.unique_id_number()
+                
                 # Формируем пароль для организатора
                 organizer_password = make_password("organizer")
                 
@@ -122,29 +79,8 @@ class Command(BaseCommand):
                 
                 # NOTE - Создаем пользователя с ролью 'модератор'
                 # Создаем уникальный идентификатор для пользователя
-                moderator_id_number: int
-                while True:
-                    with Session(engine) as session:
-                        # Генерируем случайный идентификатор
-                        moderator_id_number = random.randrange(0, 1000000, 1)
-                        
-                        # Создаем sql запрос
-                        users_sql_row = select(User)
-
-                        # Получаем всех пользователей
-                        users = session.scalars(users_sql_row).all()
-
-                        check_id_number: bool = False
-
-                        # Проверяем, есть ли такой идентификатор у другого пользователя
-                        for i in range(len(users)):
-                            if users[i].id_number == moderator_id_number:
-                                check_id_number = True
-                                break
-
-                        if not check_id_number:
-                            break
-
+                moderator_id_number = generate.unique_id_number()
+                
                 # Формируем пароль для модератора
                 moderator_password = make_password("moderator")
                 
@@ -162,29 +98,8 @@ class Command(BaseCommand):
 
                 # NOTE - Создаем пользователя с ролью 'жюри'
                 # Создаем уникальный идентификатор для пользователя
-                jury_id_number: int
-                while True:
-                    with Session(engine) as session:
-                        # Генерируем случайный идентификатор
-                        jury_id_number = random.randrange(0, 1000000, 1)
-                        
-                        # Создаем sql запрос
-                        users_sql_row = select(User)
-
-                        # Получаем всех пользователей
-                        users = session.scalars(users_sql_row).all()
-
-                        check_id_number: bool = False
-
-                        # Проверяем, есть ли такой идентификатор у другого пользователя
-                        for i in range(len(users)):
-                            if users[i].id_number == jury_id_number:
-                                check_id_number = True
-                                break
-
-                        if not check_id_number:
-                            break
-                        
+                jury_id_number = generate.unique_id_number()
+                
                 # Формируем пароль для пользователя
                 jury_password = make_password("jury")
                 

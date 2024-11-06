@@ -1,4 +1,5 @@
-from django.urls import path, include
+from django.urls import path
+from . import views
 
 
 """
@@ -6,7 +7,7 @@ from django.urls import path, include
 # SECTION - ===================== Маршрутизация приложения =====================
 
 Данный файл используется для маршрутизации приложения и отвечает за
-маршрутизацию ссылока, которые идут после api/
+маршрутизацию ссылока, которые отвечают за работу с пользователями.
 
 Более подробно вы можете ознакомиться в документации Django
 https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -15,9 +16,8 @@ https://docs.djangoproject.com/en/4.2/topics/http/urls/
 
 
 urlpatterns = [
-    path('events/', include('events.urls')),
-    path('reg/', include('registration.urls')),
-    path('auth/', include('authentication.urls')),
+    path('', views.AuthenticationAPIView.as_view(), name='auth'),
+    path('me', views.AccounMeAPIView.as_view())
 ]
 
 
