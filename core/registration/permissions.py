@@ -12,6 +12,10 @@ from rest_framework.request import HttpRequest
 В данном файле реализован кастомный класс, который проверяет пользователя,
 есть ли у него роль организатора или нет.
 
+Более подробно о работе с правами доступа вы можете ознакомиться в
+документации Django REST Framework:
+https://www.django-rest-framework.org/api-guide/permissions/
+
 """
 
 
