@@ -34,3 +34,9 @@ class EventSerializer(serializers.Serializer):
         users = session.scalars(users_sql)
         # Присваиваем полученный список пользователей в поле choices сериализатора
         self.fields['user'].choices = users
+
+class EventExcelSerializers(serializers.Serializer):
+    """
+    Сериализатор для экселя мероприятий
+    """
+    excel = serializers.FileField()
