@@ -12,7 +12,15 @@ from sqlalchemy import select
 
 class EventsApi(generics.GenericAPIView):
     serializer_class = EventSerializer
-    queryset = users_sql = session.scalars(select(Event))
+    
+    def get_queryset(self):
+        try:
+            users_sql = select(Event)
+            queryset = session.scalars(users_sql)
+        except:
+            queryset = []
+        return queryset
+
     def post(self, request):
         resp = CreateEvent().create(request)
         return response.Response(resp)
@@ -23,7 +31,14 @@ class EventsApi(generics.GenericAPIView):
     
 class EventbyidApi(generics.GenericAPIView):
     serializer_class = EventSerializer
-    queryset = users_sql = session.scalars(select(Event))
+    
+    def get_queryset(self):
+        try:
+            users_sql = select(Event)
+            queryset = session.scalars(users_sql)
+        except:
+            queryset = []
+        return queryset
     
     def get(self, request, id):
         resp = GetEventbyid().get(request, id)
