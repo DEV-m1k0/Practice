@@ -178,14 +178,24 @@ class User(Base):
                          comment="Идентификатор направления подготовки пользователя",
                          doc="Идентификатор направления подготовки пользователя",
                          info={
-                             "name": "directionId",
+                             "name": "direction_id",
                              "type": "integer",
                              "description": "Идентификатор направления подготовки пользователя",
                              "foreign_key": "direction.id",
                              "nullable": True
                              })
 
-    # event_user = relationship("EventUser", back_populates='user_id')
+    event_id = Column(Integer, ForeignKey("event.id"),
+                      nullable=True,
+                         comment="Идентификатор мероприятия пользователя",
+                         doc="Идентификатор мероприятия пользователя",
+                         info={
+                             "name": "event_id",
+                             "type": "integer",
+                             "description": "Идентификатор мероприятия пользователя",
+                             "foreign_key": "event.id",
+                             "nullable": True
+                             })
     
     def check_user_password(self, row_password):
         """

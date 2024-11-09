@@ -1,10 +1,9 @@
 from .base import BaseEvent
-from models.models import Event, User
+from models.models import Event
 from sqlalchemy import select
 from models.config import session
-from django.forms.models import model_to_dict
-import io
-from PIL import Image
+
+
 """
 
 #SECTION - ==================== Пакет для получения мероприятий по id ====================

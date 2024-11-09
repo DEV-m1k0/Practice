@@ -16,7 +16,8 @@ https://docs.djangoproject.com/en/4.2/topics/http/urls/
 
 
 urlpatterns = [
-    path('management', views.UserRegistrationAPIView.as_view(), name="reg_management")
+    path('management', views.UserRegistrationAPIView.as_view(), name="reg_management"),
+    path('management/import', views.UsersImportExcel.as_view(), name="users_import"),
 ]
 
 

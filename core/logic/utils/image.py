@@ -1,4 +1,12 @@
 
+import requests
+
+def get_image_by_url(url) -> bytes:
+    response = requests.get(url=url)
+    if response.status_code == 200:
+        return response.content
+    return None
+
 
 def load_image(image):
     return image.read()

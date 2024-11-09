@@ -22,6 +22,13 @@ https://www.django-rest-framework.org/api-guide/serializers/
 JURY_OR_MODERATOR = ["жюри", "модератор"]
 
 
+class UserImportExcelSerializer(serializers.Serializer):
+    """
+    Сериализатор для импорта пользователей из Excel файла
+    """
+    file = serializers.FileField(help_text="Необходимый формат: .xls, .xlsx")
+
+
 class UserRegistrationSerializer(serializers.Serializer):
     """
     Сериализатор для регистрации жюри/модераторов

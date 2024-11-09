@@ -17,7 +17,8 @@ class CreateUser(BaseUser):
                 role_id: int, gender: str,
                 firstname: str = NULLTYPE, lastname: str = NULLTYPE,
                 photo: Image = NULLTYPE, email: str = NULLTYPE,
-                phone: str = NULLTYPE, direction_id: int = NULLTYPE) -> Tuple[str, int]:
+                phone: str = NULLTYPE, direction_id: int = NULLTYPE,
+                event_id: int = NULLTYPE) -> Tuple[str, int]:
         self.id_number = id_number
         self.username = username
         self.password = password
@@ -29,6 +30,7 @@ class CreateUser(BaseUser):
         self.email = email
         self.phone = phone
         self.direction_id = direction_id
+        self.event_id = event_id
 
 
     def create(self):
@@ -55,6 +57,7 @@ class CreateUser(BaseUser):
                     email=self.email,
                     phone=self.phone,
                     direction_id=self.direction_id,
+                    event_id=self.event_id
                 )
                 session.add(user)
                 session.commit()
