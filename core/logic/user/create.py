@@ -17,7 +17,8 @@ class CreateUser(BaseUser):
                 role_id: int, gender: str,
                 firstname: str = NULLTYPE, lastname: str = NULLTYPE,
                 photo: Image = NULLTYPE, email: str = NULLTYPE,
-                phone: str = NULLTYPE, direction_id: int = NULLTYPE) -> Tuple[str, int]:
+                phone: str = NULLTYPE, direction_id: int = NULLTYPE,
+                event_id: int = NULLTYPE) -> Tuple[str, int]:
         self.id_number = id_number
         self.username = username
         self.password = password
@@ -29,6 +30,7 @@ class CreateUser(BaseUser):
         self.email = email
         self.phone = phone
         self.direction_id = direction_id
+        self.event_id = event_id
 
 
     def create(self):
@@ -55,6 +57,7 @@ class CreateUser(BaseUser):
                     email=self.email,
                     phone=self.phone,
                     direction_id=self.direction_id,
+                    event_id=self.event_id
                 )
                 session.add(user)
                 session.commit()
@@ -62,3 +65,19 @@ class CreateUser(BaseUser):
             return "Пользователь успешно создан", 200
         except Exception as e:
             return f"Ошибка при создании пользователя: {str(e)}", 400
+        
+
+
+
+"""
+
+# NOTE - =========================== О разработчиках ===========================
+
+Данный гайд был создан для того, чтобы помочь начинающим разработчикам
+в создании API с использованием Django Rest Framework.
+
+GitHub'ы разработчиков данного гайда:
+ - https://github.com/DEV-m1k0
+ - https://github.com/Artem822
+
+"""

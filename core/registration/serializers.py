@@ -13,9 +13,20 @@ from models.models import Event
 В данном файле расспологаются классы сериализаторы, которые будут сериализировать
 данные приходящии из клиента.
 
+Более подробно про сериализаторы вы можете ознакомиться в документации 
+Django REST Framework:
+https://www.django-rest-framework.org/api-guide/serializers/
+
 """
 
 JURY_OR_MODERATOR = ["жюри", "модератор"]
+
+
+class UserImportExcelSerializer(serializers.Serializer):
+    """
+    Сериализатор для импорта пользователей из Excel файла
+    """
+    file = serializers.FileField(help_text="Необходимый формат: .xls, .xlsx")
 
 
 class UserRegistrationSerializer(serializers.Serializer):
@@ -39,3 +50,18 @@ class UserRegistrationSerializer(serializers.Serializer):
         events_sql = select(Event)
         events = session.scalars(events_sql)
         self.fields["event"].choices = events
+
+
+
+"""
+
+# NOTE - =========================== О разработчиках ===========================
+
+Данный гайд был создан для того, чтобы помочь начинающим разработчикам
+в создании API с использованием Django Rest Framework.
+
+GitHub'ы разработчиков данного гайда:
+ - https://github.com/DEV-m1k0
+ - https://github.com/Artem822
+
+"""

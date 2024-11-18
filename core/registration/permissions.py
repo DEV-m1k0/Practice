@@ -12,6 +12,10 @@ from rest_framework.request import HttpRequest
 В данном файле реализован кастомный класс, который проверяет пользователя,
 есть ли у него роль организатора или нет.
 
+Более подробно о работе с правами доступа вы можете ознакомиться в
+документации Django REST Framework:
+https://www.django-rest-framework.org/api-guide/permissions/
+
 """
 
 
@@ -24,26 +28,28 @@ class IsOrganizer(BasePermission):
         """
         Метод проверяет, есть ли у пользователя роль организатора
         """
+        try:
+            # Получаем id текущего пользователя из сессии
+            user_id = request.session.get('user_id')
 
-        # Получаем id текущего пользователя из сессии
-        user_id = request.session.get('user_id')
+            # Формируем sql запрос
+            auth_user_sql = select(User).where(User.id == user_id)
 
-        # Формируем sql запрос
-        auth_user_sql = select(User).where(User.id == user_id)
+            # Получаем текущего пользователя
+            auth_user = session.scalar(auth_user_sql)
 
-        # Получаем текущего пользователя
-        auth_user = session.scalar(auth_user_sql)
+            # Формируем sql запрос для получения роли
+            role_sql = select(Role).where(Role.name == 'организатор')
 
-        # Формируем sql запрос для получения роли
-        role_sql = select(Role).where(Role.name == 'организатор')
+            # Получаем роль
+            role = session.scalar(role_sql)
 
-        # Получаем роль
-        role = session.scalar(role_sql)
+            # Проверяем, является ли роль текущего пользователя 'организатор'
+            # Если роль 'организатор' существует, возвращаем True
+            if auth_user.role_id == role.id:
+                return True
 
-        # Проверяем, является ли роль текущего пользователя 'организатор'
-        # Если роль 'организатор' существует, возвращаем True
-        if auth_user.role_id == role.id:
-            return True
-
-        # Если роль 'организатор' не существует, возвращаем False
-        return False
+            # Если роль 'организатор' не существует, возвращаем False
+            return False
+        except:
+            return False
